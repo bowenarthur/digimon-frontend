@@ -1,0 +1,45 @@
+<a
+    mat-raised-button
+    color="primary"
+    routerLink="/home"
+  >
+    Página principal
+  </a>
+  <br><br>
+<nav mat-tab-nav-bar mat-align-tabs="center" [tabPanel]="tabPanel" backgroundColor="primary">
+  <a
+    mat-tab-link
+    *ngFor="let level of levels"
+    (click)="onChangeLevel(level)"
+    [active]="activeLevel == level"
+  >
+    {{ level }}
+  </a>
+</nav>
+
+<mat-tab-nav-panel #tabPanel>
+  <div class="card-container" *ngIf="!loading; else loadingSpinner">
+    <app-digimon-card
+      *ngFor="let digimon of digimons"
+      [digimon]="digimon"
+    ></app-digimon-card>
+  </div>
+  <div [ngClass]="{ hide: loading }">
+    <ngb-pagination
+      class="d-flex justify-content-center mt-1"
+      [collectionSize]="totalElements"
+      [pageSize]="pageSize"
+      [(page)]="currentPage"
+      [rotate]="true"
+      [boundaryLinks]="true"
+      [maxSize]="10"
+      (pageChange)="onChangePage()"
+    ></ngb-pagination>
+  </div>
+</mat-tab-nav-panel>
+
+<ng-template #loadingSpinner>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

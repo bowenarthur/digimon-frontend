@@ -1,0 +1,68 @@
+<div class="search-container">
+  <form class="form-search" [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Nome do Digimon</mat-label>
+      <input matInput type="text" formControlName="searchInput" />
+      <button
+        *ngIf="form.controls['searchInput'].value"
+        matSuffix
+        mat-icon-button
+        aria-label="Limpar"
+        (click)="clearInput()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Level</mat-label>
+      <mat-select formControlName="level">
+        <mat-option [value]="level" *ngFor="let level of levels"
+          >{{ level }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      [disabled]="form.controls['searchInput'].value.length < 3"
+    >
+      Buscar
+    </button>
+  </form>
+  <a mat-raised-button color="primary" routerLink="/level">
+    Página de busca por level
+  </a>
+</div>
+
+<div *ngIf="!loading; else loadingSpinner">
+  <div class="card-container" *ngIf="digimons.length > 0; else notFound">
+    <app-digimon-card
+      *ngFor="let digimon of digimons"
+      [digimon]="digimon"
+    ></app-digimon-card>
+  </div>
+</div>
+
+<div [ngClass]="{ hide: loading || digimons.length === 0 }">
+  <ngb-pagination
+    class="d-flex justify-content-center mt-1"
+    [collectionSize]="totalElements"
+    [pageSize]="pageSize"
+    [(page)]="currentPage"
+    [rotate]="true"
+    [boundaryLinks]="true"
+    [maxSize]="8"
+    (pageChange)="onChangePage()"
+  ></ngb-pagination>
+</div>
+
+<ng-template #loadingSpinner>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #notFound>
+  <div class="not-found">
+    <h1>Nenhum resultado encontrado</h1>
+  </div>
+</ng-template>

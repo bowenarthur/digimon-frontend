@@ -1,0 +1,25 @@
+.digimon-card{
+    margin: 1rem;
+    align-items: center;
+    padding: 0 1rem;
+    background-color: #ff991a;
+    width: 13rem;
+    img{
+        border-radius: 20px;
+        width: 10rem;
+        margin-bottom: 1rem;
+    }
+    mat-card-title{
+        font-size: 22px;
+    }
+    mat-card-content{
+        font-weight: bold;
+    }
+}
+
+@media(max-width: 700px) {
+    .digimon-card{
+        justify-content: center;
+        width: 90%;
+    }
+}

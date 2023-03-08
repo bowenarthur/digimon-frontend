@@ -1,0 +1,9 @@
+<mat-card class="digimon-card">
+  <mat-card-header>
+    <mat-card-title>{{ digimon.name }}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="getImageUrl()" [alt]="digimon.name" />
+  <mat-card-content>
+    <p>Level: {{ digimon.level }}</p>
+  </mat-card-content>
+</mat-card>
